@@ -6,7 +6,7 @@ char  *avoir_LOcation(char *commande)
 {
 
     struct stat buff;
-    if (stat(commande, &bufF) == 0)
+    if (stat(commande, &buff) == 0)
 {
 
 	return (commande);

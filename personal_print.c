@@ -4,5 +4,5 @@
 
 void tima_mhmd_print_function(const char *missage)
 {
-write(STDOUTFILENO, missage, strlen(missage)); /*personal print*/
+write(STDOUT_FILENO, missage, strlen(missage)); /*personal print*/
 }

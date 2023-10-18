@@ -61,7 +61,7 @@ int main(int ac, char **argv)
 	argv[i] = NULL;
 
 	/* execute the command */
-	execmdftm(argv);
+	execmdftmf(argv);
 
 	}
 

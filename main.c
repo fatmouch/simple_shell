@@ -24,7 +24,7 @@ int main(void)
 
 	if (tOkEn != NULL)
 	{
-	execmdftm(tOkEn);
+	execmdftmf(tOkEn);
 	}
 	}
 
