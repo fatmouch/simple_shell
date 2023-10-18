@@ -7,6 +7,8 @@ int main(void)
 	size_t len = 0;
 	ssize_t NcHars_riid;
 	const char *Delim = " \n";
+	char *tOkEn;
+	tOkEn = strtok(LinE, Delim);
     while (1)
     {
 	tima_mhmd_print_function(PromPt);
@@ -20,7 +22,6 @@ int main(void)
 	}
 
 	/* Parse the input line into tokens */
-	char *tOkEn = strtok(LinE, Delim);
 
 	if (tOkEn != NULL)
 	{

@@ -2,14 +2,14 @@
 
 int main(int ac, char **argv)
 {
+    int i;
     char *PromPt =  "(MED_tim's_shell) $ ";
     char *lineptr = NULL, *lineptr_copy = NULL;
     size_t n = 0;
     ssize_t nchars_rid;
     const char *Delim = " \n";
     int num_tokens = 0;
-    char *token;
-    int i;
+    char *token = strtok(lineptr, Delim);
 
     /* declaring void variables */
     (void)ac;
@@ -17,7 +17,7 @@ int main(int ac, char **argv)
     /* Create a loop for the shell's PromPt */
     while (1)
 {
-	tima_mhmd_print_function("%s", PromPt);
+	tima_mhmd_print_function(PromPt);
 	nchars_rid = getline(&lineptr, &n, stdin);
 	/* check if the getline function failed or reached EOF or user use CTRL + D */
 	if (nchars_rid == -1)
@@ -61,7 +61,7 @@ int main(int ac, char **argv)
 	argv[i] = NULL;
 
 	/* execute the command */
-	execmdftmf(argv);
+	execmdftmf(PromPt);
 
 	}
 

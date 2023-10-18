@@ -7,8 +7,11 @@ void execmdftmf(char *commande)
 
     if (vrai_commande)
 	{
-	const char *argv[] = {vrai_commande, NULL};
-	if (execve(vrai_commande, argv, NULL) == -1)
+	char *argv[2];
+argv[0] = vrai_commande;
+argv[1] = NULL;
+
+	if (execve(vrai_commande, (char *const *)argv, NULL) == -1)
 {
 	perror("execve");
 	free(vrai_commande);
