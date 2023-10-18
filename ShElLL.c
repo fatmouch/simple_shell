@@ -2,13 +2,14 @@
 
 int main(int ac, char **argv)
 {
-    int i;
-    char *PromPt =  "(MED_tim's_shell) $ ";
-    char *lineptr = NULL, *lineptr_copy = NULL;
+    const char *PromPt = "(MED_tim's_shell) $ ";
+    const char *Delim = " \n";
+    char *lineptr = NULL;
     size_t n = 0;
     ssize_t nchars_rid;
-    const char *Delim = " \n";
     int num_tokens = 0;
+    char *token;
+    int i;
     char *token = strtok(lineptr, Delim);
 
     /* declaring void variables */
@@ -70,4 +71,35 @@ int main(int ac, char **argv)
 	free(lineptr_copy);
 	free(lineptr);
 	return (0);
+	
+
+	const char *PromPt = "(MED_tim's_shell) $ ";
+	char *LinE = NULL;
+	size_t len = 0;
+	ssize_t NcHars_riid;
+	const char *Delim = " \n";
+	char *tOkEn;
+	tOkEn = strtok(LinE, Delim);
+    while (1)
+    {
+	tima_mhmd_print_function(PromPt);
+	NcHars_riid = getline(&LinE, &len, stdin);
+
+	if (NcHars_riid == -1)
+	{
+	tima_mhmd_print_function("Exiting shell....\n");
+	free(LinE);
+	exit(0);
 	}
+
+	/* Parse the input line into tokens */
+
+	if (tOkEn != NULL)
+	{
+	execmdftmf(tOkEn);
+	}
+	}
+
+	free(LinE); /* Corrected variable name to match the declaration */
+	return (0);
+}
