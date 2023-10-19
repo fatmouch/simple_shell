@@ -1,24 +1,33 @@
 #include "shell.h"
 
-void exit_shell(char **args)
+/**
+ * exitt - exits the shell with or without a return of status n
+ * @arv: array of words of the entered line
+ */
+void exitt(char **arv)
 {
 	int i, n;
 
-	if (args[1])
+	if (arv[1])
 	{
-		n = string_to_int(args[1]);
+		n = _atoi(arv[1]);
 		if (n <= -1)
 			n = 2;
-		free_args(args);
+		freearv(arv);
 		exit(n);
 	}
-	for (i = 0; args[i]; i++)
-		free(args[i]);
-	free(args);
+	for (i = 0; arv[i]; i++)
+		free(arv[i]);
+	free(arv);
 	exit(0);
 }
 
-int string_to_int(char *s)
+/**
+ * _atoi - converts a string into an integer
+ *@s: pointer to a string
+ *Return: the integer
+ */
+int _atoi(char *s)
 {
 	int i, integer, sign = 1;
 
@@ -40,45 +49,55 @@ int string_to_int(char *s)
 	return (integer);
 }
 
-void print_env(char **args __attribute__ ((unused)))
+/**
+ * env - prints the current environment
+ * @arv: array of arguments
+ */
+void env(char **arv __attribute__ ((unused)))
 {
+
 	int i;
 
 	for (i = 0; environ[i]; i++)
 	{
-		print_string(environ[i]);
-		print_string("\n");
+		_puts(environ[i]);
+		_puts("\n");
 	}
+
 }
 
-void set_environment(char **args)
+/**
+ * _setenv - Initialize a new environment variable, or modify an existing one
+ * @arv: array of entered words
+ */
+void _setenv(char **arv)
 {
 	int i, j, k;
 
-	if (!args[1] || !args[2])
+	if (!arv[1] || !arv[2])
 	{
-		perror(get_env_var("_"));
+		perror(_getenv("_"));
 		return;
 	}
 
 	for (i = 0; environ[i]; i++)
 	{
 		j = 0;
-		if (args[1][j] == environ[i][j])
+		if (arv[1][j] == environ[i][j])
 		{
-			while (args[1][j])
+			while (arv[1][j])
 			{
-				if (args[1][j] != environ[i][j])
+				if (arv[1][j] != environ[i][j])
 					break;
 
 				j++;
 			}
-			if (args[1][j] == '\0')
+			if (arv[1][j] == '\0')
 			{
 				k = 0;
-				while (args[2][k])
+				while (arv[2][k])
 				{
-					environ[i][j + 1 + k] = args[2][k];
+					environ[i][j + 1 + k] = arv[2][k];
 					k++;
 				}
 				environ[i][j + 1 + k] = '\0';
@@ -88,33 +107,39 @@ void set_environment(char **args)
 	}
 	if (!environ[i])
 	{
-		environ[i] = concatenate(args[1], "=", args[2]);
+
+		environ[i] = concat_all(arv[1], "=", arv[2]);
 		environ[i + 1] = '\0';
+
 	}
 }
 
-void unset_environment(char **args)
+/**
+ * _unsetenv - Remove an environment variable
+ * @arv: array of entered words
+ */
+void _unsetenv(char **arv)
 {
 	int i, j;
 
-	if (!args[1])
+	if (!arv[1])
 	{
-		perror(get_env_var("_"));
+		perror(_getenv("_"));
 		return;
 	}
 	for (i = 0; environ[i]; i++)
 	{
 		j = 0;
-		if (args[1][j] == environ[i][j])
+		if (arv[1][j] == environ[i][j])
 		{
-			while (args[1][j])
+			while (arv[1][j])
 			{
-				if (args[1][j] != environ[i][j])
+				if (arv[1][j] != environ[i][j])
 					break;
 
 				j++;
 			}
-			if (args[1][j] == '\0')
+			if (arv[1][j] == '\0')
 			{
 				free(environ[i]);
 				environ[i] = environ[i + 1];

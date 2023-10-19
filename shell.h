@@ -12,43 +12,56 @@
 #include <sys/stat.h>
 #include <signal.h>
 
-int print_char(char c);
-void print_string(char *str);
-int string_length(char *s);
-char *string_duplicate(char *str);
-char *concatenate_all(char *name, char *sep, char *value);
+int _putchar(char c);
+void _puts(char *str);
+int _strlen(char *s);
+char *_strdup(char *str);
+char *concat_all(char *name, char *sep, char *value);
 
-char **split_string(char *str, const char *delim);
-void execute_command(char **args);
-void *reallocate(void *ptr, unsigned int old_size, unsigned int new_size);
+char **splitstring(char *str, const char *delim);
+void execute(char **argv);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+
 
 extern char **environ;
 
+/**
+ * struct list_path - Linked list containing PATH directories
+ * @dir: directory in path
+ * @p: pointer to next node
+ */
 typedef struct list_path
 {
 	char *dir;
 	struct list_path *p;
 } list_path;
 
-char *get_env_var(const char *name);
-list_path *add_node_end(list_path **head, char *str);
-list_path *create_path_list(char *path);
-char *get_executable_path(char *filename, list_path *head);
 
-typedef struct my_build
+char *_getenv(const char *name);
+list_path *add_node_end(list_path **head, char *str);
+list_path *linkpath(char *path);
+char *_which(char *filename, list_path *head);
+
+/**
+ * struct mybuild - pointer to function with corresponding buildin command
+ * @name: buildin command
+ * @func: execute the buildin command
+ */
+typedef struct mybuild
 {
 	char *name;
 	void (*func)(char **);
-} my_build;
+} mybuild;
 
-void (*check_build(char **args))(char **args);
-int string_to_int(char *s);
-void exit_shell(char **args);
-void print_env(char **args);
-void set_environment(char **args);
-void unset_environment(char **args);
+void(*checkbuild(char **arv))(char **arv);
+int _atoi(char *s);
+void exitt(char **arv);
+void env(char **arv);
+void _setenv(char **arv);
+void _unsetenv(char **arv);
 
-void free_args(char **args);
+void freearv(char **arv);
 void free_list(list_path *head);
+
 
 #endif

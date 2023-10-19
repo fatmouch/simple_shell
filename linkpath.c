@@ -1,6 +1,12 @@
 #include "shell.h"
 
-char *get_env_var(const char *name)
+
+/**
+ * _getenv - gets the value of the global variable
+ * @name: name of the global variable
+ * Return: string of value
+ */
+char *_getenv(const char *name)
 {
 	int i, j;
 	char *value;
@@ -29,25 +35,33 @@ char *get_env_var(const char *name)
 	return (0);
 }
 
+
+/**
+ * add_node_end - adds a new node at the end of a list_t list
+ * @head: pointer to pointer to our linked list
+ * @str: pointer to string in previous first node
+ * Return: address of the new element/node
+ */
+
 list_path *add_node_end(list_path **head, char *str)
 {
 
 	list_path *tmp;
-	list_path *new_node;
+	list_path *new;
 
-	new_node = malloc(sizeof(list_path));
+	new = malloc(sizeof(list_path));
 
-	if (!new_node || !str)
+	if (!new || !str)
 	{
 		return (NULL);
 	}
 
-	new_node->dir = str;
+	new->dir = str;
 
-	new_node->p = '\0';
+	new->p = '\0';
 	if (!*head)
 	{
-		*head = new_node;
+		*head = new;
 	}
 	else
 	{
@@ -55,20 +69,27 @@ list_path *add_node_end(list_path **head, char *str)
 
 		while (tmp->p)
 		{
+
 			tmp = tmp->p;
 		}
 
-		tmp->p = new_node;
+		tmp->p = new;
 	}
 
 	return (*head);
 }
 
-list_path *create_path_list(char *path)
+
+/**
+ * linkpath - creates a linked list for path directories
+ * @path: string of path value
+ * Return: pointer to the created linked list
+ */
+list_path *linkpath(char *path)
 {
 	list_path *head = '\0';
 	char *token;
-	char *cpath = string_duplicate(path);
+	char *cpath = _strdup(path);
 
 	token = strtok(cpath, ":");
 	while (token)
@@ -80,7 +101,13 @@ list_path *create_path_list(char *path)
 	return (head);
 }
 
-char *get_executable_path(char *filename, list_path *head)
+/**
+ * _which - finds the pathname of a filename
+ * @filename: name of file or command
+ * @head: head of linked list of path directories
+ * Return: pathname of filename or NULL if no match
+ */
+char *_which(char *filename, list_path *head)
 {
 	struct stat st;
 	char *string;
@@ -89,7 +116,8 @@ char *get_executable_path(char *filename, list_path *head)
 
 	while (tmp)
 	{
-		string = concatenate_all(tmp->dir, "/", filename);
+
+		string = concat_all(tmp->dir, "/", filename);
 		if (stat(string, &st) == 0)
 		{
 			return (string);
@@ -101,6 +129,10 @@ char *get_executable_path(char *filename, list_path *head)
 	return (NULL);
 }
 
+/**
+ * free_list - frees a list_t
+ *@head: pointer to our linked list
+ */
 void free_list(list_path *head)
 {
 	list_path *storage;
@@ -112,4 +144,5 @@ void free_list(list_path *head)
 		free(head);
 		head = storage;
 	}
+
 }
