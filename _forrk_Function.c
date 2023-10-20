@@ -10,7 +10,8 @@
  *Return: 0 success
  */
 
-int _forkk_fuUn(char **arg, char **av, char **env, char *lineptr, int np, int c)
+int _forkk_fuUn(char **arg, char **av, char **env,
+char *lineptr, int np, int c)
 {
 	pid_t child;
 	int status;
