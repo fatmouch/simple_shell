@@ -102,3 +102,8 @@ Implement the alias builtin command Usage: alias [name[='value'] ...] alias: Pri
 Variables Simple shell 1.0 +
 Handle variables replacement Handle the 
 $ variable
+Comments Simple shell 1.0 +
+Handle comments (#)
+
+File as input Simple shell 1.0 +
+Usage: simple ²shell [filename] Your shell can take a file as a command line argument The file contains all the commands that your shell should run before exiting The file should contain one command per line In this mode, the shell should not print a prompt and should not read from stdin
