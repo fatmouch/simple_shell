@@ -26,8 +26,7 @@ char *_getlin_commande(void);
 void _getttenv(char **env);
 char **_get_tooKken(char *lineptr);
 void _exit_ccomand(char **args, char *lineptr, int _exit);
-int _forkk_fuUn(char **arg, char **av, char **env,char *lineptr, int np, int c);
+int _forkk_fuUn(char **arg, char **av, char **env, char *lineptr, int np, int c);
 char *_strtoookK(char *str, const char *delim);
-
 
 #endif /* SHELL_H */
